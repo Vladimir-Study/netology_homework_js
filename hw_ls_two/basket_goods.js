@@ -41,16 +41,10 @@ let array_goods = [
     }, 
 ]
 
-let array_baskets = [
-    {
-        good: [array_goods[0], array_goods[2]],
-        amount: 2,
-    },
-    {
-        good: [array_goods[1]],
-        amount: 1,
-    }
-]
+clear_basket = {
+    good: [],
+    amount: 0,
+}
 
 function addGoodInBasket(good, basket) {
     basket.good.push(good)
@@ -77,14 +71,26 @@ function fullCleanBusket(basket){
     return basket
 }
 
-console.log("Исходный массив: ")
-console.log(array_baskets)
-addGoodInBasket(array_goods[1], array_baskets[0])
-console.log("Массив после добавления товара: ")
-console.log(array_baskets)
-deleteGooodOnBasket(array_goods[1], array_baskets[0])
+function totalCount(basket){
+    totalArray = {
+        totalAmmount: 0,
+        totalSumm: 0,
+    }
+    for (let i = 0; i < basket.good.length; i++){
+        totalArray.totalSumm += basket.good[i].price
+    }
+    totalArray.totalAmmount = basket.good.length
+    return totalArray
+}
+
+let basket_one = addGoodInBasket(array_goods[1], clear_basket)
+basket_one = addGoodInBasket(array_goods[0], basket_one)
+console.log("Корзина с товарами: ")
+console.log(basket_one)
+console.log(totalCount(basket_one))
+deleteGooodOnBasket(array_goods[1], basket_one)
 console.log("Массив после удаления товара: ")
-console.log(array_baskets)
-fullCleanBusket(array_baskets[0])
+console.log(basket_one)
+fullCleanBusket(basket_one)
 console.log("Массив после полной очистки корзины: ")
-console.log(array_baskets)
+console.log(basket_one)
