@@ -73,17 +73,30 @@ function fullCleanBusket(basket){
 
 function totalCount(basket){
     totalArray = {
-        totalAmmount: 0,
-        totalSumm: 0,
+        totalAmmount: {
+            allCount: 0
+        },
+        totalSumm: {
+            allGoods: 0
+        },
     }
     for (let i = 0; i < basket.good.length; i++){
-        totalArray.totalSumm += basket.good[i].price
+        if (Object.keys(totalArray.totalAmmount).includes(basket.good[i].name) == false) {
+            totalArray.totalAmmount[basket.good[i].name] = 1 
+            totalArray.totalSumm[basket.good[i].name] = basket.good[i].price
+        } else {
+            totalArray.totalAmmount[basket.good[i].name] += 1 
+            totalArray.totalSumm[basket.good[i].name] += basket.good[i].price
+        }
+        totalArray.totalSumm.allGoods += basket.good[i].price
+        totalArray.totalAmmount.allCount += 1
     }
-    totalArray.totalAmmount = basket.good.length
     return totalArray
 }
 
+
 let basket_one = addGoodInBasket(array_goods[1], clear_basket)
+basket_one = addGoodInBasket(array_goods[0], basket_one)
 basket_one = addGoodInBasket(array_goods[0], basket_one)
 console.log("Корзина с товарами: ")
 console.log(basket_one)
