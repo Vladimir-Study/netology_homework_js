@@ -41,22 +41,22 @@ let array_goods = [
     }, 
 ]
 
-clear_basket = {
-    good: [],
-    amount: 0,
-}
+let basket = []
 
-function addGoodInBasket(good, basket) {
-    basket.good.push(good)
-    basket.amount++
+function addGoodInBasket(good, basket, count_good) {
+    let add_basket = {}
+    add_basket['good'] = good
+    add_basket['amount'] = count_good
+    basket.push(add_basket)
     return basket
 }
 
 function deleteGooodOnBasket(good, basket) {
-    for (let i = 0; basket.good.length - 1; i++) {
-        if (basket.good[i].id == good.id) {
-            basket.good.pop(i)
-            basket.amount--
+    for (let i = 0; basket.length - 1; i++) {
+        console.log(basket[i].good.id == good.id)
+        if (basket[i].good.id == good.id) {
+            console.log(basket[i])
+            basket.splice(i, 1)
             break
         }        
     }
@@ -64,46 +64,38 @@ function deleteGooodOnBasket(good, basket) {
 }
 
 function fullCleanBusket(basket){
-    while (basket.good.length !== 0) {
-        basket.good.pop()
-        basket.amount--
+    if (basket.length !== 0) {
+        basket.splice(0, basket.length)
     }
     return basket
 }
 
 function totalCount(basket){
     totalArray = {
-        totalAmmount: {
-            allCount: 0
-        },
-        totalSumm: {
-            allGoods: 0
-        },
+        totalAmmount: 0,
+        totalSumm: 0,
     }
-    for (let i = 0; i < basket.good.length; i++){
-        if (Object.keys(totalArray.totalAmmount).includes(basket.good[i].name) == false) {
-            totalArray.totalAmmount[basket.good[i].name] = 1 
-            totalArray.totalSumm[basket.good[i].name] = basket.good[i].price
-        } else {
-            totalArray.totalAmmount[basket.good[i].name] += 1 
-            totalArray.totalSumm[basket.good[i].name] += basket.good[i].price
-        }
-        totalArray.totalSumm.allGoods += basket.good[i].price
-        totalArray.totalAmmount.allCount += 1
+    console.log(basket.length)
+    for (let i = 0; i <= basket.length - 1; i++){
+        console.log(i)
+        totalArray.totalSumm += (basket[i].good.price * basket[i].amount)
+        totalArray.totalAmmount += basket[i].amount
     }
     return totalArray
 }
 
 
-let basket_one = addGoodInBasket(array_goods[1], clear_basket)
-basket_one = addGoodInBasket(array_goods[0], basket_one)
-basket_one = addGoodInBasket(array_goods[0], basket_one)
-console.log("Корзина с товарами: ")
-console.log(basket_one)
-console.log(totalCount(basket_one))
-deleteGooodOnBasket(array_goods[1], basket_one)
+addGoodInBasket(array_goods[1], basket, 5)
+addGoodInBasket(array_goods[0], basket, 2)
+// console.log("Корзина с товарами: ")
+// console.log(basket)
+/*
+deleteGooodOnBasket(array_goods[1], basket)
 console.log("Массив после удаления товара: ")
-console.log(basket_one)
-fullCleanBusket(basket_one)
+console.log(basket)
+fullCleanBusket(basket)
 console.log("Массив после полной очистки корзины: ")
-console.log(basket_one)
+console.log(basket)
+*/
+summ_basket = totalCount(basket)
+console.log(summ_basket)
