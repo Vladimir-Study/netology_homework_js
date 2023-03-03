@@ -5,5 +5,7 @@ this.onclick = event => {
             element.classList.toggle('menu_active')
         }
     });
-    return false
+    if (event.target.nextElementSibling.className.includes('menu_active')) {
+        return false
+    }
 }
