@@ -1,16 +1,21 @@
-const modal_one = document.getElementById('modal_main')
-const modal_success = document.getElementById('modal_success')
-modal_one.classList.add('modal_active')
-const btn_danger = document.querySelector('.btn_danger')
-const modal_close_one = document.querySelectorAll('.modal__close')[0]
-const modal_close_two = document.querySelectorAll('.modal__close')[2]
-btn_danger.onclick = (event) => {
-    modal_success.classList.add('modal_active') 
-    modal_one.classList.remove('modal_active') 
-}
-modal_close_one.onclick = (event) => {
-    modal_one.classList.remove('modal_active') 
-}
-modal_close_two.onclick = (event) => {
-    modal_success.classList.remove('modal_active') 
-}
+const modalOne = document.getElementById('modal_main')
+const modalSuccess = document.getElementById('modal_success')
+modalOne.classList.add('modal_active')
+const btnDanger = document.querySelector('.btn_danger')
+const arrModalClose  = Array.from(document.querySelectorAll('.modal__close'))
+
+this.onclick = event => {
+    arrModalClose.forEach(element => {
+        if (event.target == element) {
+            if (event.target.tagName == 'A') {
+                modalSuccess.classList.toggle('modal_active')
+            }
+            if (event.target.closest('#modal_main') == null) {
+                event.target.closest('#modal_success').classList.toggle('modal_active')
+            }
+            else {
+                event.target.closest('#modal_main').classList.toggle('modal_active')
+            }
+        }
+    });
+} 
