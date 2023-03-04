@@ -6,7 +6,10 @@ btn.addEventListener('click', event => {
     }
 )
 
-this.addEventListener('click', ev => {
-    console.log(ev.target)
+addEventListener('click', ev => {
+    if (ev.target.className == 'dropdown__link') {
+        btn.textContent = ev.target.textContent
+        lst.classList.toggle('dropdown__list_active')
+    }
     ev.preventDefault()
 })
