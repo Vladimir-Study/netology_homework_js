@@ -81,13 +81,19 @@ class Autocomplete {
         value: 'Содержимое атрибута value'
       }
     */
-    return [
-      {
-        text: 'Чубакка',
-        value: '1'
+    let arrOptions = Array.from(this.input.options)
+    let result_arr = []
+    arrOptions.forEach(element => {
+      if (element.innerText.includes(text)) {
+        const addValue = {
+          'text': element.innerText,
+          'value': element.value
+        }
+        result_arr.push(addValue)
       }
-    ];
-  }
+    });
+    return result_arr  
+ }
 }
 
 new Autocomplete( document.querySelector( '.autocomplete' ));
